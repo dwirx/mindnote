@@ -454,12 +454,12 @@
   /* Mobile optimizations */
   @media (max-width: 768px) {
     .editor-header {
-      padding: 1rem;
-      padding-top: 4rem; /* Space for burger menu */
+      padding: 0.75rem 1rem;
+      padding-top: 3.5rem; /* Space for burger menu */
     }
 
     .title-input {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
     }
 
     .content-textarea {
@@ -485,12 +485,12 @@
 
   @media (max-width: 600px) {
     .editor-header {
-      padding: 0.75rem;
-      padding-top: 3.5rem;
+      padding: 0.5rem 0.75rem;
+      padding-top: 3.25rem;
     }
 
     .title-input {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
 
     .content-textarea {
