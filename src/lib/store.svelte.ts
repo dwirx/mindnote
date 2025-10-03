@@ -238,6 +238,11 @@ class UIStore {
   theme: 'dark' | 'light' | 'typewriter' | 'minimal' | 'dark-typewriter' | 'green-terminal' | 'amber-noir' | 'indigo-typewriter' | 'everforest-transparent' | 'tokyo-night-transparent' | 'gruvbox-transparent' = $state('dark')
   font: string = $state('courier-prime')
   fontSize: number = $state(16)
+  markdownPreview: boolean = $state(false)
+
+  toggleMarkdownPreview() {
+    this.markdownPreview = !this.markdownPreview
+  }
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen

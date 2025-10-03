@@ -13,7 +13,6 @@
   
   let titleInput: HTMLInputElement | undefined = $state()
   let contentTextarea: HTMLTextAreaElement | undefined = $state()
-  let previewMode = $state(false)
   let backlinks = $state<NoteMetadata[]>([])
   
   // Load note when component mounts or ID changes
@@ -71,10 +70,6 @@
     router.navigate(`/note/${newId}`)
   }
 
-  const togglePreview = () => {
-    previewMode = !previewMode
-  }
-
   // Auto-resize textarea for mobile
   const autoResizeTextarea = (textarea: HTMLTextAreaElement) => {
     if (uiStore.isMobile) {
@@ -111,12 +106,12 @@
       />
       <div class="header-actions">
         <button 
-          onclick={togglePreview} 
+          onclick={uiStore.toggleMarkdownPreview}
           class="btn-preview" 
-          class:active={previewMode}
-          title={previewMode ? 'Edit mode' : 'Preview mode'}
+          class:active={uiStore.markdownPreview}
+          title={uiStore.markdownPreview ? 'Edit mode' : 'Preview mode'}
         >
-          {previewMode ? '✏️' : '👁️'}
+          {uiStore.markdownPreview ? '✏️' : '👁️'}
         </button>
         <button 
           onclick={handleTogglePin} 
@@ -133,7 +128,7 @@
     </div>
     
     <div class="editor-content">
-      {#if previewMode}
+      {#if uiStore.markdownPreview}
         <MarkdownPreview content={notesStore.currentNote.content} />
       {:else}
         <textarea
