@@ -831,3 +831,115 @@ button:focus-visible {
   font-family: system-ui, -apple-system, sans-serif !important;
   line-height: 1.6 !important;
 }
+
+/* Markdown Preview Styles */
+.markdown-preview {
+  padding: 2rem;
+  line-height: 1.7;
+  color: var(--text-color);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3,
+.markdown-preview h4,
+.markdown-preview h5,
+.markdown-preview h6 {
+  color: var(--text-color);
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.3em;
+}
+
+.markdown-preview h1 { font-size: 2em; }
+.markdown-preview h2 { font-size: 1.5em; }
+.markdown-preview h3 { font-size: 1.25em; }
+.markdown-preview h4 { font-size: 1em; }
+.markdown-preview h5 { font-size: 0.875em; }
+.markdown-preview h6 { font-size: 0.85em; }
+
+.markdown-preview p {
+  margin-bottom: 1em;
+}
+
+.markdown-preview a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.markdown-preview a:hover {
+  text-decoration: underline;
+  color: var(--primary-hover);
+}
+
+.markdown-preview ul,
+.markdown-preview ol {
+  margin-bottom: 1em;
+  padding-left: 2em;
+}
+
+.markdown-preview li {
+  margin-bottom: 0.5em;
+}
+
+.markdown-preview blockquote {
+  margin: 1.5em 0;
+  padding: 0.5em 1.5em;
+  border-left: 4px solid var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.markdown-preview hr {
+  border: 0;
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 2em 0;
+}
+
+.markdown-preview code {
+  font-family: 'Courier Prime', 'JetBrains Mono', monospace;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.markdown-preview pre {
+  background-color: var(--card-bg);
+  padding: 1em;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin-bottom: 1em;
+}
+
+.markdown-preview pre code {
+  padding: 0;
+  background-color: transparent;
+  font-size: 0.9em;
+}
+
+.markdown-preview table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1em;
+}
+
+.markdown-preview th,
+.markdown-preview td {
+  border: 1px solid var(--border-color);
+  padding: 0.75em;
+  text-align: left;
+}
+
+.markdown-preview th {
+  background-color: var(--card-bg);
+  font-weight: 600;
+}
