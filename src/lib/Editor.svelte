@@ -205,8 +205,8 @@
   }
 
   .editor-header {
-    padding: 1.5rem 2rem;
-    padding-left: 3.5rem; /* Add space for toggle button */
+    padding: 1rem 1.5rem;
+    padding-left: 3rem; /* Add space for toggle button */
     border-bottom: 1px solid var(--border-color);
     display: flex;
     gap: 1rem;
@@ -235,7 +235,7 @@
 
   .title-input {
     flex: 1;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 700;
     background: transparent;
     border: none;
