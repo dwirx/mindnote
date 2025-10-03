@@ -238,10 +238,20 @@ class UIStore {
   theme: 'dark' | 'light' | 'typewriter' | 'minimal' | 'dark-typewriter' | 'green-terminal' | 'amber-noir' | 'indigo-typewriter' | 'everforest-transparent' | 'tokyo-night-transparent' | 'gruvbox-transparent' = $state('dark')
   font: string = $state('courier-prime')
   fontSize: number = $state(16)
-  markdownPreview: boolean = $state(false)
+  previewMode: 'edit' | 'split' | 'preview' = $state('edit')
 
-  toggleMarkdownPreview() {
-    this.markdownPreview = !this.markdownPreview
+  // Cycle through preview modes intelligently
+  cyclePreviewMode() {
+    if (this.isMobile) {
+      // On mobile, just toggle between edit and full preview
+      this.previewMode = this.previewMode === 'edit' ? 'preview' : 'edit';
+    } else {
+      // On desktop, cycle through edit -> split -> preview -> edit
+      const modes: Array<'edit' | 'split' | 'preview'> = ['edit', 'split', 'preview'];
+      const currentIndex = modes.indexOf(this.previewMode);
+      const nextIndex = (currentIndex + 1) % modes.length;
+      this.previewMode = modes[nextIndex];
+    }
   }
 
   toggleSidebar() {

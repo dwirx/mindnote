@@ -91,6 +91,29 @@
   onDestroy(() => {
     notesStore.clearCurrentNote()
   })
+
+  // Helper for preview button state
+  const previewButtonState = $derived(() => {
+    const isMobile = uiStore.isMobile;
+    const mode = uiStore.previewMode;
+
+    if (isMobile) {
+      return mode === 'edit'
+        ? { title: 'Preview mode', icon: '👁️' }
+        : { title: 'Edit mode', icon: '✏️' };
+    }
+
+    switch (mode) {
+      case 'edit':
+        return { title: 'Split view', icon: '◧' };
+      case 'split':
+        return { title: 'Preview-only view', icon: '👁️' };
+      case 'preview':
+        return { title: 'Editor view', icon: '✏️' };
+      default:
+        return { title: 'Error', icon: '?' };
+    }
+  });
 </script>
 
 <div class="editor">
@@ -105,13 +128,13 @@
         placeholder="Note title..."
       />
       <div class="header-actions">
-        <button 
-          onclick={uiStore.toggleMarkdownPreview}
-          class="btn-preview" 
-          class:active={uiStore.markdownPreview}
-          title={uiStore.markdownPreview ? 'Edit mode' : 'Preview mode'}
+        <button
+          onclick={uiStore.cyclePreviewMode}
+          class="btn-preview"
+          class:active={uiStore.previewMode !== 'edit'}
+          title={previewButtonState().title}
         >
-          {uiStore.markdownPreview ? '✏️' : '👁️'}
+          {@html previewButtonState().icon}
         </button>
         <button 
           onclick={handleTogglePin} 
@@ -127,10 +150,9 @@
       </div>
     </div>
     
-    <div class="editor-content">
-      {#if uiStore.markdownPreview}
-        <MarkdownPreview content={notesStore.currentNote.content} />
-      {:else}
+    <div class="editor-content" class:split-view={uiStore.previewMode === 'split'}>
+      <!-- Show editor if in 'edit' or 'split' mode -->
+      {#if uiStore.previewMode === 'edit' || uiStore.previewMode === 'split'}
         <textarea
           bind:this={contentTextarea}
           class="content-textarea editor-text"
@@ -138,6 +160,13 @@
           oninput={handleContentChange}
           placeholder="Start writing your note... Use [[note-title]] for cross-note links"
         ></textarea>
+      {/if}
+
+      <!-- Show preview if in 'preview' or 'split' mode -->
+      {#if uiStore.previewMode === 'preview' || uiStore.previewMode === 'split'}
+        <div class="markdown-preview-wrapper">
+          <MarkdownPreview content={notesStore.currentNote.content} />
+        </div>
       {/if}
     </div>
 
@@ -231,6 +260,32 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+  }
+
+  /* Styles for split-screen layout */
+  .editor-content.split-view {
+    flex-direction: row;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .split-view .content-textarea,
+  .split-view .markdown-preview-wrapper {
+    flex: 1;
+    width: 50%;
+    height: 100%;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+  }
+
+  .split-view .content-textarea {
+    padding: 1.5rem; /* Keep original padding */
+    resize: none;
+  }
+
+  .split-view .markdown-preview-wrapper {
+    padding: 1.5rem;
   }
 
   .title-input {
